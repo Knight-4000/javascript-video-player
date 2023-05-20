@@ -51,6 +51,16 @@ function updateProgress() {
     duration.textContent = `${displayTime(video.duration)}`;
 }
 
+// Click progress bar to jump to different point in video, or "seek"
+
+function setProgress(e) {
+    // offsetX is a pixel width based value
+    // offsetWidth is the total width. offsetX is your position inside offsetWidth.
+    const newTime = e.offsetX / progressRange.offsetWidth;
+    progressBar.style.width = `${newTime * 100}%`;
+    video.currentTime = newTime * video.duration;
+}
+
 // Volume Controls --------------------------- //
 
 
@@ -68,3 +78,4 @@ playBtn.addEventListener('click', togglePlay);
 video.addEventListener('click', togglePlay);
 video.addEventListener('timeupdate', updateProgress);
 video.addEventListener('canplay', updateProgress);
+progressRange.addEventListener('click',setProgress);
