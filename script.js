@@ -37,15 +37,12 @@ video.addEventListener('ended', showPlayIcon);
 // Calculate time display format
 
 function displayTime(time) {
-// time is the parameter above
 const minutes = Math.floor(time / 60);
 let seconds = Math.floor(time % 60);
 seconds = seconds > 9 ? seconds : `0${seconds}`;
 return `${minutes}:${seconds}`;
 }
 // Update progress bar as video plays
-
-// 
 
 function updateProgress() {
     progressBar.style.width = `${(video.currentTime /video.duration) * 100}%`;
@@ -56,8 +53,6 @@ function updateProgress() {
 // Click progress bar to jump to different point in video, or "seek"
 
 function setProgress(e) {
-    // offsetX is a pixel width based value
-    // offsetWidth is the total width. offsetX is your position inside offsetWidth.
     const newTime = e.offsetX / progressRange.offsetWidth;
     progressBar.style.width = `${newTime * 100}%`;
     video.currentTime = newTime * video.duration;
@@ -70,9 +65,7 @@ let lastVolume = 1;
 // Volume Bar
 
 function changeVolume(e) {
-    // e above is the event.
     let volume = e.offsetX / volumeRange.offsetWidth;
-    // Rounding volume up or down
     if (volume < 0.1) {
         volume = 0;
     }
@@ -87,11 +80,9 @@ function changeVolume(e) {
         volumeIcon.classList.add('fas', 'fa-volume-up');
     } else if (volume < 0.7 && volume > 0) {
         volumeIcon.classList.add('fas', 'fa-volume-down');
-        // one = to set the value, three === to check it.
     } else if (volume === 0) {
         volumeIcon.classList.add('fas', 'fa-volume-off');
     }
-    // Tracks whatever volume changes and saves it 
     lastVolume = volume;
 }
 
@@ -100,14 +91,12 @@ function changeVolume(e) {
 function toggleMute() {
      volumeIcon.className = '';
     if (video.volume) {
-        // Saves the last volume
         lastVolume = video.volume;
         video.volume = 0;
         volumeBar.style.width = 0;
         volumeIcon.classList.add('fas', 'fa-volume-mute');
         volumeIcon.setAttribute('title', 'Unmute');
     } else {
-        // retrieves saved last volume on line 103
         video.volume = lastVolume;
         volumeBar.style.width = `${lastVolume * 100}%`;
         if (lastVolume > 0.5) {
@@ -160,11 +149,7 @@ let fullscreen = false;
 // Toggle Fullscreen
 
 function toggleFullScreen() {
-   if(!fullscreen) {
-    openFullscreen(player);
-   } else {
-    closeFullscreen();
-   }
+   !fullscreen ? openFullscreen(player) : closeFullscreen();
    fullscreen = !fullscreen;
 }
 
